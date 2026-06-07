@@ -29,16 +29,15 @@ jobs:
 
       - name: Build
         env:
-          ANDROID_NDK_HOME: ${{ steps.setup-ndk.outputs.ndk-path }}
-          NDK_BIN: ${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin
           CC_aarch64_linux_android: ${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android33-clang
           CXX_aarch64_linux_android: ${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android33-clang++
           AR_aarch64_linux_android: ${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar
-          OPENSSL_DIR: /usr/include/openssl
+          OPENSSL_STATIC: 1
+          OPENSSL_VENDOR: 1
         run: |
           cargo build --release \
             --target aarch64-linux-android \
-            --features sqlite
+            --features sqlite,vendored-openssl
 
       - uses: actions/upload-artifact@v4
         with:
