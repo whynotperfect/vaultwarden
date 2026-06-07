@@ -32,12 +32,10 @@ jobs:
           CC_aarch64_linux_android: ${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android33-clang
           CXX_aarch64_linux_android: ${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin/aarch64-linux-android33-clang++
           AR_aarch64_linux_android: ${{ steps.setup-ndk.outputs.ndk-path }}/toolchains/llvm/prebuilt/linux-x86_64/bin/llvm-ar
-          OPENSSL_STATIC: 1
-          OPENSSL_VENDOR: 1
         run: |
           cargo build --release \
             --target aarch64-linux-android \
-            --features sqlite,vendored-openssl
+            --features sqlite,vendored_openssl
 
       - uses: actions/upload-artifact@v4
         with:
